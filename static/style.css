@@ -1,0 +1,219 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('/static/background.jpg');
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+   
+}
+
+/* Animate form input fields on focus */
+input:focus, select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); /* Green glow effect */
+    transform: scale(1.05); /* Slightly enlarges input field */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animate button on hover */
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* Slightly enlarges button */
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); /* Add shadow on hover */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animate the form group (input container) on hover */
+.form-group {
+    transition: all 0.3s ease;
+}
+
+.form-group:hover {
+    transform: translateY(-2px); /* Slight movement upward on hover */
+}
+
+
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.975);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 880px;
+    max-width: 700px;
+    width: 100%;
+    margin-bottom: 2rem; /* Space between containers */
+    margin-top: 2rem;
+}
+
+.container1 {
+    background-color: rgba(255, 255, 255, 0.979);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    width: 90%;
+    align-items: center;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centering content */
+    gap: 3rem; /* Space between elements */
+}
+
+.image-container h2 {
+    max-width: 800px; /* Adjust as per your layout */
+    font-size: 2.25rem;
+    text-align: center;
+    margin-bottom: 2rem; /* Adds space between heading and images */
+    margin-right: 2rem;
+}
+
+.image-container img {
+    max-width: 1000px; /* Larger width */
+    width: 100%;
+    height: auto; /* Ensure image height scales properly */
+    border-radius: 5px;
+    margin-bottom: 0.5rem; /* Space below the images */
+}
+
+.image-description {
+    text-align: left;
+    font-size: 1.3rem; /* Increase font size if needed */
+    margin-top: 1rem;
+    color: #333; /* Optional color */
+    margin-bottom: 2rem;
+}
+
+
+/* Add your existing form styles here if you have any */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+
+
+@media (min-width: 768px) {
+    .image-container {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .image-container img {
+        max-width: 80%;
+    }
+}
+
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+#prediction-form .form-group{
+    font-size: 1.3rem;
+}
+
+.bmi-calculator label{
+    font-size: 1.3rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+
+.price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.hidden {
+    display: none;
+}
+
+.flying-input {
+    position: absolute;
+    padding: 5px 10px;
+    background-color: transparent;
+    color: black;
+    border-radius: 20px;
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 10;
+    transition: all 2s ease-in-out;
+}
+
+.loading-indicator {
+    text-align: center;
+    margin-top: 1rem;
+    font-style: italic;
+    color: #666;
+}
+
+#result-container {
+    text-align: center;
+    margin-top: 2rem;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}

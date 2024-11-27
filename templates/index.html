@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <div class="wrapper">
+        <div class="container">
+            <h1>Insurance Price Predictor</h1>
+
+            <div class="bmi-calculator">
+                <h2>BMI Calculator</h2>
+                <label for="weight">Weight (kg):</label>
+                <input type="number" id="weight" placeholder="Enter your weight" required>
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" placeholder="Enter your height" required>
+                <button onclick="calculateBMI()">Calculate BMI</button>
+                <div class="result" id="bmiResult"></div>
+            </div>
+    
+            <form id="prediction-form">
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                <div class="form-group">
+                    <label for="bmi">BMI:</label>
+                    <input type="number" id="bmi" name="bmi" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="children">Number of Children:</label>
+                    <input type="number" id="children" name="children" required>
+                </div>
+                <div class="form-group">
+                    <label for="smoker">Smoker:</label>
+                    <select id="smoker" name="smoker" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+                <button type="submit">Predict</button>
+            </form>
+            <div id="result-container" class="hidden">
+                <h2>Predicted Insurance Price:</h2>
+                <p id="prediction-result" class="price"></p>
+            </div>
+            
+
+        </div>
+        
+        <div class="container1">
+            <div class="image-container">
+                &nbsp;<h2>Analysis of Factors Affecting Insurance Premium</h2>
+                <br>
+                <img src="{{ url_for('static', filename='bmivscharges.png') }}" alt="BMI vs Charges">
+                <p class="image-description"><strong>Positive Correlation Between BMI and Medical Charges:</strong> As BMI increases, medical charges tend to rise. This suggests that higher body weight often correlates with increased healthcare costs, likely due to associated health issues such as diabetes, heart disease, and hypertension.
+                    <br>
+                    <br>
+                    
+                    <strong>Differential Impact of Smoking:</strong>
+                    <br>
+                    <br>
+                    
+                    &nbsp;•<strong> Non-Smokers (Blue Points):</strong> For individuals who do not smoke, medical charges remain relatively stable and lower across the BMI spectrum. Most non-smokers have charges that do not spike dramatically, even with rising BMI levels.
+                    <br>
+                    &nbsp;•<strong>Smokers (Orange Points):</strong> In stark contrast, smokers exhibit significantly higher medical charges, particularly as their BMI increases. This indicates that smoking exacerbates health risks and subsequently increases healthcare costs.
+                    <br>
+                    &nbsp;•<strong>BMI Range and Charges:</strong> The majority of data points cluster within the BMI range of 20 to 40. Notably, as BMI exceeds 35, charges for smokers escalate sharply. This suggests a compounding effect of smoking and obesity on overall health costs.
+                    <br>
+                    &nbsp;•<strong>Heightened Charges for Smokers:</strong> A distinct gap emerges between the medical charges of smokers and non-smokers at higher BMI levels. Smokers consistently face more significant expenses, a reflection of the myriad health issues associated with smoking and higher BMI.</p>
+                
+                <img src="{{ url_for('static', filename='bmivsmedicalcharges.png') }}" alt="BMI vs Medical Charges">
+                <p class="image-description">
+                    <strong>Diverse Groups Represented:</strong>
+                    <br>
+                    <br>
+                    &nbsp;•<strong>Red Points (Non-Obese & Smoker):</strong> These individuals generally exhibit moderate medical charges, although some may incur higher expenses due to smoking.
+                    <br>
+                    <br>
+                    
+                    &nbsp;•<strong>Blue Points (Obese & Non-Smoker):</strong> The charges remain relatively stable across BMI levels but are higher than those of non-obese smokers at lower BMI values.
+                    <br>
+                    <br>
+                    &nbsp;•<strong>Green Points (Non-Obese & Non-Smoker):</strong> This group represents the lowest charges overall, highlighting the financial benefits of maintaining a healthy lifestyle.
+                    <br>
+                    <br>
+                    &nbsp;•<strong>Purple Points (Obese & Smoker):</strong> Individuals in this category face the highest medical charges, particularly as their BMI increases, illustrating the compounded risk of obesity and smoking.
+                    <br>
+                    <br>
+                    <strong>Impact of Obesity:</strong>
+                    <br>
+                    &nbsp;•The data indicates that obese individuals, especially those who smoke, tend to experience significantly higher medical charges. This trend emphasizes the dual risk associated with these lifestyle factors.
+                    <br>
+                    <br>
+                    <strong>Health Implications:</strong>
+                    <br>
+                    &nbsp;•The scatter plot highlights that as BMI increases, so does the likelihood of incurring higher medical costs. Obesity not only affects physical health but also places a substantial financial burden on individuals, particularly when combined with smoking.
+                    <br>
+                    <br>
+                    <strong>Need for Targeted Interventions:</strong>
+                    <br>
+                    &nbsp;•The stark differences in medical charges across these groups suggest a pressing need for public health initiatives aimed at reducing smoking rates and promoting healthy weight management.
+                </p>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
+<script>
+    // BMI Calculation
+    function calculateBMI() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to meters
+
+        if (isNaN(weight) || weight <= 0) {
+            document.getElementById('bmiResult').textContent = "Please enter a valid weight greater than 0 kg.";
+            return;
+        }
+        if (isNaN(height) || height <= 0) {
+            document.getElementById('bmiResult').textContent = "Please enter a valid height greater than 0 cm.";
+            return;
+        }
+
+        const bmi = (weight / (height * height)).toFixed(1);
+        document.getElementById('bmiResult').textContent = "Your BMI is " + bmi;
+
+        // Set the BMI value in the insurance prediction form
+        document.getElementById('bmi').value = bmi;
+    }
+
+    // Form Submission using AJAX
+    document.getElementById('prediction-form').onsubmit = async function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const age = parseInt(document.getElementById('age').value);
+        const bmi = parseFloat(document.getElementById('bmi').value);
+
+        // Validation checks
+        if (age <= 18) {
+            alert('Please enter an age greater than 18.');
+            location.reload();
+            return;
+        }
+        if (bmi <= 15 || bmi >= 55) {
+            alert('BMI must be greater than 15 and less than 50.');
+            location.reload();
+            return;
+        }
+        else if (bmi <= 15.0 || bmi >= 55.0) {
+            
+            alert('BMI must be greater than 15 and less than 50.');
+            location.reload();
+            return;
+        }
+
+        const formData = new FormData(event.target);
+
+        try {
+            const response = await fetch('/', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.result) {
+                document.getElementById('prediction-result').textContent = data.result;
+                document.getElementById('result-container').style.display = 'block'; // Show the result
+            } else if (data.error) {
+                document.getElementById('prediction-result').textContent = "Error: " + data.error;
+                document.getElementById('result-container').style.display = 'block'; // Show error message
+            }
+
+        } catch (error) {
+            document.getElementById('prediction-result').textContent = "Please wait!!";
+            document.getElementById('result-container').style.display = 'block'; // Show error message
+        }
+    };
+</script>
